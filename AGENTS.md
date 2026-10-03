@@ -1,10 +1,6 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# Architecture rules
+- Retain the template's TanStack Start and file-based routing bootstrap because the preview platform requires it; application behavior is frontend-only.
+- Keep brand configuration and repeated content in src/data, demo records in src/data/mock, and shared types in src/types to make future integration and renaming straightforward.
+- Use only in-memory React state for demo mutations; never add services, persistence, credentials, server functions, or simulated network endpoints.
+- Keep all semantic visual tokens in src/styles.css and use utility classes for component layout and styling.
+- Define unique metadata through the centralized pageHead helper for every content route; emit canonical and URL-based structured data only after a real deployment URL is configured.
