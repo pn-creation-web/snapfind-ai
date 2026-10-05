@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoGalleryRouteImport } from './routes/demo-gallery'
+import { Route as EventDemoRouteImport } from './routes/event-demo'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
@@ -41,9 +43,19 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoGalleryRoute = DemoGalleryRouteImport.update({
   id: '/demo-gallery',
   path: '/demo-gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventDemoRoute = EventDemoRouteImport.update({
+  id: '/event-demo',
+  path: '/event-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeaturesRoute = FeaturesRouteImport.update({
@@ -111,7 +123,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
+  '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -129,7 +143,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
+  '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -147,7 +163,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
+  '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/how-it-works': typeof HowItWorksRoute
@@ -167,7 +185,9 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dashboard'
     | '/demo-gallery'
+    | '/event-demo'
     | '/features'
     | '/forgot-password'
     | '/how-it-works'
@@ -185,7 +205,9 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dashboard'
     | '/demo-gallery'
+    | '/event-demo'
     | '/features'
     | '/forgot-password'
     | '/how-it-works'
@@ -202,7 +224,9 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dashboard'
     | '/demo-gallery'
+    | '/event-demo'
     | '/features'
     | '/forgot-password'
     | '/how-it-works'
@@ -221,7 +245,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
   DemoGalleryRoute: typeof DemoGalleryRoute
+  EventDemoRoute: typeof EventDemoRoute
   FeaturesRoute: typeof FeaturesRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   HowItWorksRoute: typeof HowItWorksRoute
@@ -257,11 +283,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo-gallery': {
       id: '/demo-gallery'
       path: '/demo-gallery'
       fullPath: '/demo-gallery'
       preLoaderRoute: typeof DemoGalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event-demo': {
+      id: '/event-demo'
+      path: '/event-demo'
+      fullPath: '/event-demo'
+      preLoaderRoute: typeof EventDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/features': {
@@ -369,7 +409,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
   DemoGalleryRoute: DemoGalleryRoute,
+  EventDemoRoute: EventDemoRoute,
   FeaturesRoute: FeaturesRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   HowItWorksRoute: HowItWorksRoute,
