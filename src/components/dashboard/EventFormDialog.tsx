@@ -12,17 +12,17 @@ import { useDemoEvents } from './DemoEventsProvider';
 const blank = { name: '', type: 'Wedding', date: '', location: '', description: '', visibility: 'Public' };
 const selectClass = 'h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
 
-export function EventFormDialog({ open, onOpenChange, event }: { open: boolean; onOpenChange: (v: boolean) => void; event?: Event }) {
+export function EventFormDialog({ open, onOpenChange, event }: { open: boolean; onOpenChange: (v: boolean) => void; event?: Event | undefined }) {
   const { saveEvent } = useDemoEvents();
   const [form, setForm] = useState(blank);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<{ name?: string; date?: string; location?: string }>({});
   const [saving, setSaving] = useState(false);
   useEffect(() => { if (open) { setForm(event ? { ...event } : blank); setErrors({}); } }, [open, event]);
   const set = (k: keyof typeof blank, v: string) => setForm(f => ({ ...f, [k]: v }));
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
-    const next: Record<string, string> = {};
+    const next: { name?: string; date?: string; location?: string } = {};
     if (form.name.trim().length < 3) next.name = 'Enter an event name of at least 3 characters.';
     if (!form.date) next.date = 'Choose an event date.';
     if (!form.location.trim()) next.location = 'Enter a location.';
@@ -31,7 +31,7 @@ export function EventFormDialog({ open, onOpenChange, event }: { open: boolean; 
     setSaving(true);
     // BACKEND TODO: POST /events to create, PATCH /events/:id to update.
     setTimeout(() => {
-      saveEvent(event ? { ...event, ...form } : { ...form, id: `e${Date.now()}`, cover: eventCovers[form.type], photos: 0, views: 0 });
+      saveEvent(event ? { ...event, ...form } : { ...form, id: `e${Date.now()}`, cover: eventCovers[form.type] ?? '', photos: 0, views: 0 });
       setSaving(false); onOpenChange(false);
       toast.success(event ? 'Event updated (demo).' : 'Event created (demo).');
     }, 600);

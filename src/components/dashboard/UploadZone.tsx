@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 
-type Item = { id: string; file: File; preview: string; progress: number; status: 'queued' | 'uploading' | 'done' | 'error' | 'cancelled'; error?: string };
+type Item = { id: string; file: File; preview: string; progress: number; status: 'queued' | 'uploading' | 'done' | 'error' | 'cancelled'; error?: string | undefined };
 const MAX = 15 * 1024 * 1024;
 const TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
@@ -38,8 +38,8 @@ export function UploadZone({ onComplete }: { onComplete: (count: number) => void
     if (!files) return;
     const next: Item[] = [];
     Array.from(files).forEach(file => {
-      if (!TYPES.includes(file.type)) return toast.error(`${file.name}: use JPG, PNG, or WebP.`);
-      if (file.size > MAX) return toast.error(`${file.name}: larger than 15 MB.`);
+      if (!TYPES.includes(file.type)) { toast.error(`${file.name}: use JPG, PNG, or WebP.`); return; }
+      if (file.size > MAX) { toast.error(`${file.name}: larger than 15 MB.`); return; }
       next.push({ id: crypto.randomUUID(), file, preview: URL.createObjectURL(file), progress: 0, status: 'queued' });
     });
     setItems(list => [...next, ...list]);
