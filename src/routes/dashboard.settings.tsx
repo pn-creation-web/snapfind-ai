@@ -19,7 +19,7 @@ function SettingsPage() {
   const [notify, setNotify] = useState({ uploads: true, downloads: false });
   const save = (e: FormEvent) => {
     e.preventDefault();
-    if (!/^\S+@\S+\.\S+$/.test(profile.email)) return toast.error('Enter a valid email.');
+    if (!/^\S+@\S+\.\S+$/.test(profile.email)) { toast.error('Enter a valid email.'); return; }
     // BACKEND TODO: PATCH photographer profile and notification preferences.
     toast.success('Settings saved for this session (demo).');
   };
