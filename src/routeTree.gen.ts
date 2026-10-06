@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoGalleryRouteImport } from './routes/demo-gallery'
 import { Route as EventDemoRouteImport } from './routes/event-demo'
 import { Route as FeaturesRouteImport } from './routes/features'
@@ -41,11 +40,6 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoGalleryRoute = DemoGalleryRouteImport.update({
@@ -123,7 +117,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
   '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
@@ -143,7 +136,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
   '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
@@ -163,7 +155,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/demo-gallery': typeof DemoGalleryRoute
   '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
@@ -185,7 +176,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/dashboard'
     | '/demo-gallery'
     | '/event-demo'
     | '/features'
@@ -205,7 +195,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/dashboard'
     | '/demo-gallery'
     | '/event-demo'
     | '/features'
@@ -224,7 +213,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/dashboard'
     | '/demo-gallery'
     | '/event-demo'
     | '/features'
@@ -245,7 +233,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRoute
   DemoGalleryRoute: typeof DemoGalleryRoute
   EventDemoRoute: typeof EventDemoRoute
   FeaturesRoute: typeof FeaturesRoute
@@ -281,13 +268,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo-gallery': {
@@ -409,7 +389,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRoute,
   DemoGalleryRoute: DemoGalleryRoute,
   EventDemoRoute: EventDemoRoute,
   FeaturesRoute: FeaturesRoute,
