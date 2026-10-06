@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as DemoGalleryRouteImport } from './routes/demo-gallery'
 import { Route as EventDemoRouteImport } from './routes/event-demo'
 import { Route as FeaturesRouteImport } from './routes/features'
@@ -24,8 +25,15 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as VerifyRouteImport } from './routes/verify'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAnalyticsRouteImport } from './routes/dashboard.analytics'
+import { Route as DashboardPhotosRouteImport } from './routes/dashboard.photos'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions.index'
 import { Route as SolutionsSlugRouteImport } from './routes/solutions.$slug'
+import { Route as DashboardEventsIndexRouteImport } from './routes/dashboard.events.index'
+import { Route as DashboardEventsEventIdRouteImport } from './routes/dashboard.events.$eventId'
+import { Route as DashboardGalleryGalleryIdRouteImport } from './routes/dashboard.gallery.$galleryId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +48,11 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoGalleryRoute = DemoGalleryRouteImport.update({
@@ -102,6 +115,26 @@ const VerifyRoute = VerifyRouteImport.update({
   path: '/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardAnalyticsRoute = DashboardAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardPhotosRoute = DashboardPhotosRouteImport.update({
+  id: '/photos',
+  path: '/photos',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -112,11 +145,28 @@ const SolutionsSlugRoute = SolutionsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => SolutionsRoute,
 } as any)
+const DashboardEventsIndexRoute = DashboardEventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardEventsEventIdRoute = DashboardEventsEventIdRouteImport.update({
+  id: '/events/$eventId',
+  path: '/events/$eventId',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardGalleryGalleryIdRoute =
+  DashboardGalleryGalleryIdRouteImport.update({
+    id: '/gallery/$galleryId',
+    path: '/gallery/$galleryId',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/demo-gallery': typeof DemoGalleryRoute
   '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
@@ -129,8 +179,15 @@ export interface FileRoutesByFullPath {
   '/solutions': typeof SolutionsRouteWithChildren
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/photos': typeof DashboardPhotosRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/dashboard/events/$eventId': typeof DashboardEventsEventIdRoute
+  '/dashboard/gallery/$galleryId': typeof DashboardGalleryGalleryIdRoute
+  '/dashboard/events/': typeof DashboardEventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -147,14 +204,22 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/photos': typeof DashboardPhotosRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/solutions': typeof SolutionsIndexRoute
+  '/dashboard/events/$eventId': typeof DashboardEventsEventIdRoute
+  '/dashboard/gallery/$galleryId': typeof DashboardGalleryGalleryIdRoute
+  '/dashboard/events': typeof DashboardEventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/demo-gallery': typeof DemoGalleryRoute
   '/event-demo': typeof EventDemoRoute
   '/features': typeof FeaturesRoute
@@ -167,8 +232,15 @@ export interface FileRoutesById {
   '/solutions': typeof SolutionsRouteWithChildren
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/dashboard/analytics': typeof DashboardAnalyticsRoute
+  '/dashboard/photos': typeof DashboardPhotosRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/solutions/$slug': typeof SolutionsSlugRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/dashboard/events/$eventId': typeof DashboardEventsEventIdRoute
+  '/dashboard/gallery/$galleryId': typeof DashboardGalleryGalleryIdRoute
+  '/dashboard/events/': typeof DashboardEventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -176,6 +248,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/dashboard'
     | '/demo-gallery'
     | '/event-demo'
     | '/features'
@@ -188,8 +261,15 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/terms'
     | '/verify'
+    | '/dashboard/analytics'
+    | '/dashboard/photos'
+    | '/dashboard/settings'
     | '/solutions/$slug'
+    | '/dashboard/'
     | '/solutions/'
+    | '/dashboard/events/$eventId'
+    | '/dashboard/gallery/$galleryId'
+    | '/dashboard/events/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -206,13 +286,21 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/verify'
+    | '/dashboard/analytics'
+    | '/dashboard/photos'
+    | '/dashboard/settings'
     | '/solutions/$slug'
+    | '/dashboard'
     | '/solutions'
+    | '/dashboard/events/$eventId'
+    | '/dashboard/gallery/$galleryId'
+    | '/dashboard/events'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/dashboard'
     | '/demo-gallery'
     | '/event-demo'
     | '/features'
@@ -225,14 +313,22 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/terms'
     | '/verify'
+    | '/dashboard/analytics'
+    | '/dashboard/photos'
+    | '/dashboard/settings'
     | '/solutions/$slug'
+    | '/dashboard/'
     | '/solutions/'
+    | '/dashboard/events/$eventId'
+    | '/dashboard/gallery/$galleryId'
+    | '/dashboard/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   DemoGalleryRoute: typeof DemoGalleryRoute
   EventDemoRoute: typeof EventDemoRoute
   FeaturesRoute: typeof FeaturesRoute
@@ -268,6 +364,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo-gallery': {
@@ -354,6 +457,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/analytics': {
+      id: '/dashboard/analytics'
+      path: '/analytics'
+      fullPath: '/dashboard/analytics'
+      preLoaderRoute: typeof DashboardAnalyticsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/photos': {
+      id: '/dashboard/photos'
+      path: '/photos'
+      fullPath: '/dashboard/photos'
+      preLoaderRoute: typeof DashboardPhotosRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/solutions/': {
       id: '/solutions/'
       path: '/'
@@ -368,8 +499,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsSlugRouteImport
       parentRoute: typeof SolutionsRoute
     }
+    '/dashboard/events/': {
+      id: '/dashboard/events/'
+      path: '/events'
+      fullPath: '/dashboard/events/'
+      preLoaderRoute: typeof DashboardEventsIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/events/$eventId': {
+      id: '/dashboard/events/$eventId'
+      path: '/events/$eventId'
+      fullPath: '/dashboard/events/$eventId'
+      preLoaderRoute: typeof DashboardEventsEventIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/gallery/$galleryId': {
+      id: '/dashboard/gallery/$galleryId'
+      path: '/gallery/$galleryId'
+      fullPath: '/dashboard/gallery/$galleryId'
+      preLoaderRoute: typeof DashboardGalleryGalleryIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
+
+interface DashboardRouteChildren {
+  DashboardAnalyticsRoute: typeof DashboardAnalyticsRoute
+  DashboardPhotosRoute: typeof DashboardPhotosRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardEventsEventIdRoute: typeof DashboardEventsEventIdRoute
+  DashboardGalleryGalleryIdRoute: typeof DashboardGalleryGalleryIdRoute
+  DashboardEventsIndexRoute: typeof DashboardEventsIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAnalyticsRoute: DashboardAnalyticsRoute,
+  DashboardPhotosRoute: DashboardPhotosRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardEventsEventIdRoute: DashboardEventsEventIdRoute,
+  DashboardGalleryGalleryIdRoute: DashboardGalleryGalleryIdRoute,
+  DashboardEventsIndexRoute: DashboardEventsIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 interface SolutionsRouteChildren {
   SolutionsSlugRoute: typeof SolutionsSlugRoute
@@ -389,6 +565,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   DemoGalleryRoute: DemoGalleryRoute,
   EventDemoRoute: EventDemoRoute,
   FeaturesRoute: FeaturesRoute,
