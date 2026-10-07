@@ -12,19 +12,19 @@ export const Route = createFileRoute('/dashboard/photos')({
 });
 
 function PhotosPage() {
-  const { events, addPhotos } = useDemoEvents();
+  const { events, addUpload } = useDemoEvents();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
   const eventId = search.event ?? events[0]?.id;
   const current = events.find(e => e.id === eventId);
   return <Container className="py-10">
     <h1 className="text-3xl font-bold">Upload photos</h1>
-    <p className="mt-1 text-muted-foreground">Uploads are simulated — your files never leave this device.</p>
+    <p className="mt-1 text-muted-foreground">Uploads are simulated — files stay on this device; small previews are kept in this browser.</p>
     <div className="mt-6 max-w-sm space-y-1.5">
       <label htmlFor="upload-event" className="text-sm font-medium">Add to event</label>
       <select id="upload-event" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm" value={eventId} onChange={e => navigate({ search: { event: e.target.value } })}>{events.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}</select>
       {current && <p className="text-xs text-muted-foreground">{current.photos} photos in this event</p>}
     </div>
-    <div className="mt-6"><UploadZone key={eventId} onComplete={n => eventId && addPhotos(eventId, n)} /></div>
+    <div className="mt-6"><UploadZone key={eventId} onComplete={file => eventId && addUpload(eventId, file)} /></div>
   </Container>;
 }
