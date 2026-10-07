@@ -6,3 +6,4 @@ export interface PricingPlan { name: string; monthly: number; description: strin
 export interface User { name: string; email: string; studio: string; }
 export interface Gallery { id: string; eventId: string; name: string; photoIds: string[]; }
 export interface DashboardStats { label: string; value: string; change: string; }
+export interface UploadedPhoto { id: string; eventId: string; filename: string; type: string; size: number; uploadedAt: string; thumb: string; }

@@ -8,11 +8,12 @@ type Item = { id: string; file: File; preview: string; progress: number; status:
 const MAX = 15 * 1024 * 1024;
 const TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
-export function UploadZone({ onComplete }: { onComplete: (count: number) => void }) {
+export function UploadZone({ onComplete }: { onComplete: (file: File) => void }) {
   const [items, setItems] = useState<Item[]>([]);
   const [drag, setDrag] = useState(false);
   const input = useRef<HTMLInputElement>(null);
   const timers = useRef<Record<string, ReturnType<typeof setInterval>>>({});
+  const completed = useRef(new Set<string>());
   const itemsRef = useRef(items); itemsRef.current = items;
 
   useEffect(() => () => { Object.values(timers.current).forEach(clearInterval); itemsRef.current.forEach(i => URL.revokeObjectURL(i.preview)); }, []);
@@ -28,7 +29,7 @@ export function UploadZone({ onComplete }: { onComplete: (count: number) => void
         if (i.id !== id) return i;
         const progress = Math.min(100, i.progress + 8 + Math.random() * 18);
         if (failChance && progress > 55) { clearInterval(timers.current[id]); return { ...i, status: 'error', error: 'Connection interrupted (simulated).' }; }
-        if (progress >= 100) { clearInterval(timers.current[id]); onComplete(1); return { ...i, progress: 100, status: 'done' }; }
+        if (progress >= 100) { clearInterval(timers.current[id]); if (!completed.current.has(id)) { completed.current.add(id); onComplete(i.file); } return { ...i, progress: 100, status: 'done' }; }
         return { ...i, progress };
       }));
     }, 250);
